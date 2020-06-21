@@ -2,7 +2,15 @@
 // ***** SEGMENT CLASS *****
 // This class will be used to represent each part of the moving snake.
 //*
+int x
+;
+int y;
 
+int X;
+int Y;
+
+int foodX;
+int foodY;
 class Segment {
 
 //Add x and y member variables. They will hold the corner location of each segment of the snake.
@@ -10,8 +18,10 @@ class Segment {
 
 // Add a constructor with parameters to initialize each variable.
 
-
-
+Segment(int x, int y){
+  this.x=x;
+  this.y=y;
+}
 }
 
 
@@ -19,10 +29,13 @@ class Segment {
 // ***** GAME VARIABLES *****
 // All the game variables that will be shared by the game methods are here
 //*
+void segment(){
+}
 
-
-
-
+Segment(int X, int Y){
+  this.X=X;
+  this.Y=Y;
+}
 
 //*
 // ***** SETUP METHODS *****
@@ -30,12 +43,12 @@ class Segment {
 //*
 
 void setup() {
-
+setSize(500,500);
 }
 
 void dropFood() {
   //Set the food in a new random location
-    
+    foodX = ((int)random(50)*10);
 }
 
 
@@ -57,6 +70,7 @@ void drawFood() {
 void drawSnake() {
   //Draw the head of the snake followed by its tail
 }
+
 
 
 //*
