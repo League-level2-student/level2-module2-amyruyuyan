@@ -29,8 +29,10 @@ Segment(int snakex, int snakey){
 // All the game variables that will be shared by the game methods are here
 //*
 
-int direction;
-int amountoffood;
+ArrayList<Segment> tail = new ArrayList<Segment>();
+
+int direction = UP;
+int amountoffood = 0;
 Segment head = new Segment(250, 250);
 
 // ***** SETUP METHODS *****
@@ -46,6 +48,7 @@ dropFood();
 void dropFood() {
   //Set the food in a new random location
     foodX = ((int)random(50)*10);
+     foodY = ((int)random(50)*10);
 }
 
 
@@ -84,13 +87,18 @@ rect(head.snakex, head.snakey, 10, 10);
 
 void drawTail() {
   //Draw each segment of the tail 
-
+  for (int i = 0; i < tail.size(); i++){   
+fill (#F1D6FF);
+rect (tail.get(i).snakex, tail.get(i).snakey, 10, 10);
+  }
 }
 
 void manageTail() {
   //After drawing the tail, add a new segment at the "start" of the tail and remove the one at the "end" 
   //This produces the illusion of the snake tail moving.
-  
+  checkTailCollision();
+  drawTail();
+  tail.add(new Segment );
 }
 
 void checkTailCollision() {
@@ -107,22 +115,35 @@ void checkTailCollision() {
 
 void keyPressed() {
   //Set the direction of the snake according to the arrow keys pressed
-  
+  if (key == CODED) {
+    if (keyCode == UP) {
+      direction = UP;
+      } 
+   else if (keyCode == DOWN) {
+      direction = DOWN;
+      } 
+   else if (keyCode == LEFT){
+     direction = LEFT;
+      }
+   else if (keyCode == RIGHT){
+     direction = RIGHT;
+   }
+   } 
 }
 
 void move() {
   //Change the location of the Snake head based on the direction it is moving.
 switch(direction) {
-  case UP: direction.snakex - 1;
+  case UP: head.snakey -= 10; 
     // move head up here 
-    break;
-  case DOWN:
+    break; 
+  case DOWN: head.snakey += 10;
     // move head down here 
     break;
-  case LEFT:
+  case LEFT: head.snakex -= 10;
    // figure it out 
     break;
-  case RIGHT:
+  case RIGHT: head.snakex += 10;
     // mystery code goes here 
     break;
   }
@@ -148,12 +169,26 @@ checkBoundaries();
 
 void checkBoundaries() {
  //If the snake leaves the frame, make it reappear on the other side
- 
+ if (head.snakex == 500){
+   head.snakex = 10;
+ }
+ if (head.snakex == 0){
+   head.snakex = 490;
+ }
+ if (head.snakey == 500){
+   head.snakey = 10;
+ }
+ if (head.snakey == 0){
+   head.snakey = 490;
+ }
 }
 
 
 
 void eat() {
   //When the snake eats the food, its tail should grow and more food appear
-
+if (head.snakex == foodX && head.snakey == foodY){
+  amountoffood += 1;
+  dropFood();
+}
 }
