@@ -2,25 +2,24 @@
 // ***** SEGMENT CLASS *****
 // This class will be used to represent each part of the moving snake.
 //*
-int x
-;
+int x;
 int y;
-
-int X;
-int Y;
 
 int foodX;
 int foodY;
-class Segment {
+class Segment { 
+  
+int snakex;
+int snakey;
 
 //Add x and y member variables. They will hold the corner location of each segment of the snake.
 
 
 // Add a constructor with parameters to initialize each variable.
 
-Segment(int x, int y){
-  this.x=x;
-  this.y=y;
+Segment(int snakex, int snakey){
+  this.snakex = snakex;
+  this.snakey = snakey;
 }
 }
 
@@ -29,21 +28,19 @@ Segment(int x, int y){
 // ***** GAME VARIABLES *****
 // All the game variables that will be shared by the game methods are here
 //*
-void segment(){
-}
 
-Segment(int X, int Y){
-  this.X=X;
-  this.Y=Y;
-}
+int direction;
+int amountoffood;
+Segment head = new Segment(250, 250);
 
-//*
 // ***** SETUP METHODS *****
 // These methods are called at the start of the game.
 //*
 
 void setup() {
-setSize(500,500);
+size(500,500);
+frameRate(20);
+dropFood();
 }
 
 void dropFood() {
@@ -59,16 +56,23 @@ void dropFood() {
 //*
 
 void draw() {
-  
+background(#FFD8E6);
+drawFood();
+move();
+drawSnake();
+eat();
 }
 
 void drawFood() {
   //Draw the food
-  
+fill(#D8FFF1);
+rect(foodX, foodY, 10, 10);
 }
 
 void drawSnake() {
   //Draw the head of the snake followed by its tail
+fill(#E7E5FF);
+rect(head.snakex, head.snakey, 10, 10);
 }
 
 
@@ -108,10 +112,25 @@ void keyPressed() {
 
 void move() {
   //Change the location of the Snake head based on the direction it is moving.
-  
+switch(direction) {
+  case UP: direction.snakex - 1;
+    // move head up here 
+    break;
+  case DOWN:
+    // move head down here 
+    break;
+  case LEFT:
+   // figure it out 
+    break;
+  case RIGHT:
+    // mystery code goes here 
+    break;
+  }
+checkBoundaries();
+ 
     /*
   switch(direction) {
-  case UP:
+  case UP: snakeX - 1;
     // move head up here 
     break;
   case DOWN:
