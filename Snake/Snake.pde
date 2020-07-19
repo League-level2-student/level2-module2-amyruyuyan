@@ -41,14 +41,14 @@ Segment head = new Segment(250, 250);
 
 void setup() {
 size(500,500);
-frameRate(20);
+frameRate(10);
 dropFood();
 }
 
 void dropFood() {
   //Set the food in a new random location
-    foodX = ((int)random(50)*10);
-     foodY = ((int)random(50)*10);
+    foodX = ((int)random(48)*10 + 10);
+     foodY = ((int)random(48)*10 + 10);
 }
 
 
@@ -76,6 +76,7 @@ void drawSnake() {
   //Draw the head of the snake followed by its tail
 fill(#E7E5FF);
 rect(head.snakex, head.snakey, 10, 10);
+manageTail();
 }
 
 
@@ -98,17 +99,20 @@ void manageTail() {
   //This produces the illusion of the snake tail moving.
   checkTailCollision();
   drawTail();
-  tail.add(new Segment );
+  tail.add(new Segment(head.snakex, head.snakey));
+  tail.remove(0);
 }
 
 void checkTailCollision() {
   //If the snake crosses its own tail, shrink the tail back to one segment
-  
-}
-
-
-
-//*
+  for (int i = 0; i < tail.size(); i++){
+  if (head.snakex == tail.get(i).snakex && head.snakey == tail.get(i).snakey){
+    amountoffood = 0;
+    tail = new ArrayList<Segment>();
+    tail.add(new Segment(head.snakex, head.snakey));
+  }
+  }
+  }
 // ***** CONTROL METHODS *****
 // These methods are used to change what is happening to the snake
 //*
@@ -190,5 +194,6 @@ void eat() {
 if (head.snakex == foodX && head.snakey == foodY){
   amountoffood += 1;
   dropFood();
+  tail.add(new Segment(head.snakex, head.snakey));
 }
 }
